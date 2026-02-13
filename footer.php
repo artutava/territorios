@@ -18,7 +18,7 @@
       <div class="col-xl-3 col-md-6">
         <div class="vl-footer-widget-1 mb-30">
           <div class="vl-footer-logo">
-            <a href="index-disaster.html"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo/vl-footer-logo-1.1.png" alt=""></a>
+            <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo/vl-footer-logo-1.1.png" alt=""></a>
           </div>
           <div class="vl-footer-content">
             <p>Saúde, Sustentabilidade e Saberes Locais em Ação </p>
@@ -36,9 +36,9 @@
           <h3 class="title">Links Rápidos</h3>
           <div class="vl-footer-menu">
             <ul>
-              <li><a href="page-about.html">O Projeto</a></li>
-              <li><a href="page-contact.html">Agenda</a></li>
-              <li><a href="page-blog.html">Notícias</a></li>
+              <li><a href="/about">O Projeto</a></li>
+              <li><a href="/calendario">Calendário</a></li>
+              <li><a href="/noticias">Notícias</a></li>
               
             </ul>
           </div>
@@ -51,7 +51,7 @@
             <ul>
               <li><a href="#">Cachoeira</a></li>
               <li><a href="#">Mossoró</a></li>
-              <li><a href="team.html">Codó</a></li>
+              <li><a href="#">Codó</a></li>
               <li><a href="#">Ilha de Marajó</a></li>
               <li><a href="#">Marabá</a></li>
             </ul>

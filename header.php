@@ -100,32 +100,32 @@
           <div class="col-lg-12">
             <div class="header-elements header-elements-1">
               <div class="site-logo">
-                <a href="page-index.html"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo/vl-logo-1.1.png" alt=""></a>
+                <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo/vl-logo-1.1.png" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
                   
-                  <li><a href="page-about.html">O Projeto</a></li>
+                  <li><a href="/about">O Projeto</a></li>
                   
                   <li><a href="#">Regiões  <i class="fa-solid fa-angle-down"></i></a>
                     <ul class="dropdown-padding">
-                      <li><a href="page-region-north.html">Norte</a></li>
-                      <li><a href="page-cause-single.html">Nordeste</a></li>
-                      <li><a href="page-cause-single.html">Centro-Oeste</a></li>
-                      <li><a href="page-cause-single.html">Sudeste</a></li>
-                      <li><a href="page-cause-single.html">Sul</a></li>
+                      <li><a href="/norte">Norte</a></li>
+                      <li><a href="/nordeste">Nordeste</a></li>
+                      <li><a href="/centro-oeste">Centro-Oeste</a></li>
+                      <li><a href="/sudeste">Sudeste</a></li>
+                      <li><a href="/sul">Sul</a></li>
                     </ul>
                   </li>
-                  <li><a href="page-gallery.html">Galeria</a></li>
-                  <li><a href="page-event.html">Calendário</a></li>
-                  <li><a href="page-blog.html">Notícias</a></li>
-                  <li><a href="page-contact.html">Contato</a></li>
+                  <li><a href="/galeria">Galeria</a></li>
+                  <li><a href="/calendario">Calendário</a></li>
+                  <li><a href="/noticias">Notícias</a></li>
+                  <li><a href="/contato">Contato</a></li>
                   
                   
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="page-libary.html" class="header-btn1">Biblioteca   <span><i class="fa-solid fa-arrow-right"></i></span></a>
+                <a href="/biblioteca" class="header-btn1">Biblioteca   <span><i class="fa-solid fa-arrow-right"></i></span></a>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="page-index.html"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo/vl-logo-1.1.png" alt=""></a>
+          <a href="/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo/vl-logo-1.1.png" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars"></i>
@@ -162,25 +162,25 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="page-about.html">O Projeto</a></li>
+      <li><a href="/about">O Projeto</a></li>
       <li><a href="#">Regiões</a>
         <ul class="sub-menu">
-          <li><a href="page-region-north.html">Norte</a></li>
-          <li><a href="page-region-north.html">Nordeste</a></li>
-          <li><a href="page-region-north.html">Centro-Oeste</a></li>
-          <li><a href="page-region-north.html">Sudeste</a></li>
-          <li><a href="page-region-north.html">Sul</a></li>
+          <li><a href="/norte">Norte</a></li>
+          <li><a href="/nordeste">Nordeste</a></li>
+          <li><a href="/centro-oeste">Centro-Oeste</a></li>
+          <li><a href="/sudeste">Sudeste</a></li>
+          <li><a href="/sul">Sul</a></li>
         </ul>
       </li>
-      <li><a href="page-gallery.html">Galeria</a></li>
-      <li><a href="page-event.html">Calendário</a></li>
-      <li><a href="page-blog.html">Notícias</a></li>
-      <li><a href="page-contact.html">Contato</a></li>
+      <li><a href="/galeria">Galeria</a></li>
+      <li><a href="/calendario">Calendário</a></li>
+      <li><a href="/noticias">Notícias</a></li>
+      <li><a href="/contato">Contato</a></li>
     </ul>
 
     <div class="allmobilesection">
       <!-- btn -->
-      <a href="page-contact.html"  class="header-mobile-btn1">Biblioteca <span><i class="fa-solid fa-arrow-right"></i></span></a>
+      <a href="/biblioteca"  class="header-mobile-btn1">Biblioteca <span><i class="fa-solid fa-arrow-right"></i></span></a>
       
       <div class="vl-mobile-contact1">
         <h3 class="title">Informações</h3>
