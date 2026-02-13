@@ -1,0 +1,97 @@
+/* Limita largura da tela de edição do Material (centraliza) */
+.post-type-material #poststuff {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Layout do metabox */
+.tm-material-editor{
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.tm-cover-card{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.tm-cover{
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f3f4f6;
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tm-cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+.tm-cover-actions{
+  margin-top: 10px;
+}
+
+.tm-muted{
+  color: #6b7280;
+  font-size: 12px;
+  margin: 0;
+}
+
+.tm-right .tm-field{
+  margin-bottom: 14px;
+}
+
+.tm-right label{
+  display:block;
+  margin-bottom: 6px;
+}
+
+.tm-right input[type="url"],
+.tm-right select{
+  width: 100%;
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.tm-row{
+  display:flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tm-row input[type="url"]{
+  flex: 1;
+}
+
+.tm-hr{
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin: 14px 0;
+}
+
+.tm-preview{
+  margin-top: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+@media (max-width: 860px){
+  .tm-material-editor{
+    grid-template-columns: 1fr;
+  }
+}

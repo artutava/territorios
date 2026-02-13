@@ -109,11 +109,11 @@
                   
                   <li><a href="#">Regiões  <i class="fa-solid fa-angle-down"></i></a>
                     <ul class="dropdown-padding">
-                      <li><a href="/norte">Norte</a></li>
-                      <li><a href="/nordeste">Nordeste</a></li>
-                      <li><a href="/centro-oeste">Centro-Oeste</a></li>
-                      <li><a href="/sudeste">Sudeste</a></li>
-                      <li><a href="/sul">Sul</a></li>
+                      <li><a href="/regioes/norte">Norte</a></li>
+                      <li><a href="/regioes/nordeste">Nordeste</a></li>
+                      <li><a href="/regioes/centro-oeste">Centro-Oeste</a></li>
+                      <li><a href="/regioes/sudeste">Sudeste</a></li>
+                      <li><a href="/regioes/sul">Sul</a></li>
                     </ul>
                   </li>
                   <li><a href="/galeria">Galeria</a></li>
@@ -165,11 +165,11 @@
       <li><a href="/about">O Projeto</a></li>
       <li><a href="#">Regiões</a>
         <ul class="sub-menu">
-          <li><a href="/norte">Norte</a></li>
-          <li><a href="/nordeste">Nordeste</a></li>
-          <li><a href="/centro-oeste">Centro-Oeste</a></li>
-          <li><a href="/sudeste">Sudeste</a></li>
-          <li><a href="/sul">Sul</a></li>
+          <li><a href="/regioes/norte">Norte</a></li>
+          <li><a href="/regioes/nordeste">Nordeste</a></li>
+          <li><a href="/regioes/centro-oeste">Centro-Oeste</a></li>
+          <li><a href="/regioes/sudeste">Sudeste</a></li>
+          <li><a href="/regioes/sul">Sul</a></li>
         </ul>
       </li>
       <li><a href="/galeria">Galeria</a></li>
