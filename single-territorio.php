@@ -91,40 +91,53 @@ if (have_posts()) : while (have_posts()) : the_post();
           </div>
 
           <div class="col-xl-5">
-            <!-- Contadores (placeholder): depois você pode trocar por campos custom -->
-            <div class="vl-counter-wrap" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-              <div class="row">
+            <?php
+                $defaults = [
+                1 => ['prefix' => '',  'number' => '232', 'suffix' => 'K',  'label' => 'Pessoas mobilizadas diretamente'],
+                2 => ['prefix' => '+', 'number' => '40',  'suffix' => '',   'label' => 'Ações e articulações comunitárias'],
+                3 => ['prefix' => '',  'number' => '50',  'suffix' => 'K',  'label' => 'Ciclos de formação previstos'],
+                4 => ['prefix' => '',  'number' => '35',  'suffix' => 'K+', 'label' => 'Impacto estimado em rede'],
+                ];
 
-                <div class="col-lg-6 col-md-6">
-                  <div class="vl-wrp-counter">
-                    <h4 class="title pb-18"><span class="counter">232</span><span>K</span></h4>
-                    <p>Pessoas mobilizadas diretamente</p>
-                  </div>
+                $counters = [];
+                for ($i=1; $i<=4; $i++) {
+                $counters[$i] = [
+                    'prefix' => get_post_meta($post_id, "territorio_counter_{$i}_prefix", true),
+                    'number' => get_post_meta($post_id, "territorio_counter_{$i}_number", true),
+                    'suffix' => get_post_meta($post_id, "territorio_counter_{$i}_suffix", true),
+                    'label'  => get_post_meta($post_id, "territorio_counter_{$i}_label", true),
+                ];
+
+                // fallback se vazio
+                foreach ($counters[$i] as $k => $v) {
+                    if ($v === '' || $v === null) $counters[$i][$k] = $defaults[$i][$k];
+                }
+                }
+                ?>
+
+                <div class="vl-counter-wrap" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <div class="row">
+                    <?php for ($i=1; $i<=4; $i++) : ?>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="vl-wrp-counter">
+                        <h4 class="title pb-18">
+                            <?php if ($counters[$i]['prefix'] !== '') : ?>
+                            <?php echo esc_html($counters[$i]['prefix']); ?>
+                            <?php endif; ?>
+
+                            <span class="counter"><?php echo esc_html($counters[$i]['number']); ?></span>
+
+                            <?php if ($counters[$i]['suffix'] !== '') : ?>
+                            <span><?php echo esc_html($counters[$i]['suffix']); ?></span>
+                            <?php endif; ?>
+                        </h4>
+                        <p><?php echo esc_html($counters[$i]['label']); ?></p>
+                        </div>
+                    </div>
+                    <?php endfor; ?>
+                </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
-                  <div class="vl-wrp-counter">
-                    <h4 class="title pb-18">+ <span class="counter">40</span><span></span></h4>
-                    <p>Ações e articulações comunitárias</p>
-                  </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6">
-                  <div class="vl-wrp-counter">
-                    <h4 class="title pb-18"><span class="counter">50</span><span>K</span></h4>
-                    <p>Ciclos de formação previstos</p>
-                  </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6">
-                  <div class="vl-wrp-counter">
-                    <h4 class="title pb-18"><span class="counter">35</span><span>K+</span></h4>
-                    <p>Impacto estimado em rede</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
           </div>
         </div>
 
@@ -335,291 +348,532 @@ if ($materiais->have_posts()) :
 <?php endif; ?>
 
 
-  <!--===== Galley AREA STARTS =======-->
-  <section class="vl-gallery-section sp2" id="galeria-section">
-    <div class="vl-gallery-shape-7">
-      <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/shape/vl-gallery-hand-shape-7.1.svg'); ?>" alt="">
+
+<!--===== Galley AREA STARTS =======-->
+<section class="vl-gallery-section sp2" id="galeria-section">
+  <div class="vl-gallery-shape-7">
+    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/shape/vl-gallery-hand-shape-7.1.svg'); ?>" alt="">
+  </div>
+
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="vl-work-content-6 mb-60">
+          <div class="vl-section-title-9">
+            <h2 class="vl-title text-anime-style-3">Galeria do Território</h2>
+            <p>Acompanhe nossos registros dos eventos e oficinas de cuidado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-60">
+        <div class="vl-gallery-btn-9">
+          <?php
+            $territorio_id = get_the_ID();
+            $galerias_url  = add_query_arg(
+              'tab',
+              get_post_field('post_name', $territorio_id),
+              get_post_type_archive_link('galeria')
+            );
+          ?>
+          <a href="<?php echo esc_url($galerias_url); ?>" class="primary-btn-9">
+            Ver mais Registros <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-up-arrow-9.1.svg'); ?>" alt=""></span>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="vl-work-content-6 mb-60">
-            <div class="vl-section-title-9">
-              <h2 class="vl-title text-anime-style-3">Galeria do Território</h2>
-              <p>Acompanhe nossos registros dos eventos e oficinas de cuidado.</p>
+
+    <?php
+      // Galerias do território (ordenadas por data DESC)
+      $galerias = get_posts([
+        'post_type'      => 'galeria',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'meta_query'     => [
+          [
+            'key'     => 'galeria_territorio_id',
+            'value'   => (string) $territorio_id,
+            'compare' => '=',
+          ],
+        ],
+      ]);
+
+      // Monta itens do grid (todas as fotos em sequência, agrupadas por galeria no lightbox)
+      $items = [];
+      foreach ($galerias as $g) {
+        $ids = get_post_meta($g->ID, 'galeria_imagens', true);
+        if (!is_array($ids)) $ids = [];
+        $ids = array_values(array_filter(array_map('intval', $ids)));
+
+        foreach ($ids as $att_id) {
+          $full  = wp_get_attachment_image_url($att_id, 'full');
+          $thumb = wp_get_attachment_image_url($att_id, 'large');
+          if (!$thumb) $thumb = wp_get_attachment_image_url($att_id, 'full');
+          if (!$full) continue;
+
+          $items[] = [
+            'full'         => $full,
+            'thumb'        => $thumb,
+            'lightbox_key' => 'galeria-' . (int) $g->ID,
+          ];
+        }
+      }
+    ?>
+
+    <?php if (!empty($items)) : ?>
+      <div class="row">
+        <?php
+          $aos = 900;
+          foreach ($items as $item) :
+            $aos = min(1300, $aos + 60);
+        ?>
+          <div class="col-lg-4 col-md-6 mb-30">
+            <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="<?php echo (int) $aos; ?>" data-aos-delay="300">
+              <a href="<?php echo esc_url($item['full']); ?>" data-lightbox="<?php echo esc_attr($item['lightbox_key']); ?>">
+                <img class="w-100" src="<?php echo esc_url($item['thumb']); ?>" alt="">
+              </a>
+              <a href="<?php echo esc_url($item['full']); ?>" data-lightbox="<?php echo esc_attr($item['lightbox_key']); ?>" class="search-ic search-ic-8">
+                <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
+              </a>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 mb-60">
-          <div class="vl-gallery-btn-9">
-            <a href="#" class="primary-btn-9">Ver mais Registros <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-up-arrow-9.1.svg'); ?>" alt=""></span></a>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </div>
-
-      <!-- Mantido como placeholder estático (você pode trocar depois por galeria real / ACF / CPT mídia) -->
+    <?php else : ?>
       <div class="row">
-        <div class="col-lg-6 col-md-6 mb-30">
-          <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="300">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.1.jpg'); ?>" data-lightbox="image-1">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.1.jpg'); ?>" alt="">
-            </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.1.jpg'); ?>" data-lightbox="image-1" class="search-ic search-ic-8">
-              <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-30">
-          <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="1100" data-aos-delay="300">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.2.jpg'); ?>" data-lightbox="image-1">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.2.jpg'); ?>" alt="">
-            </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.2.jpg'); ?>" data-lightbox="image-1" class="search-ic search-ic-8">
-              <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-30">
-          <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="1200" data-aos-delay="300">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.3.jpg'); ?>" data-lightbox="image-1">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.3.jpg'); ?>" alt="">
-            </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-1.3.jpg'); ?>" data-lightbox="image-1" class="search-ic search-ic-8">
-              <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-30">
-          <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="800" data-aos-delay="300">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.1.jpg'); ?>" data-lightbox="image-1">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.1.jpg'); ?>" alt="">
-            </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.1.jpg'); ?>" data-lightbox="image-1" class="search-ic search-ic-8">
-              <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-30">
-          <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="800" data-aos-delay="300">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.7.jpg'); ?>" data-lightbox="image-1">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.7.jpg'); ?>" alt="">
-            </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.7.jpg'); ?>" data-lightbox="image-1" class="search-ic search-ic-8">
-              <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 mb-30">
-          <div class="vl-single-box" data-aos="zoom-in-up" data-aos-duration="900" data-aos-delay="300">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.8.jpg'); ?>" data-lightbox="image-1">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.8.jpg'); ?>" alt="">
-            </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/assets/img/gallery/vl-gallery-thum-sm-3.8.jpg'); ?>" data-lightbox="image-1" class="search-ic search-ic-8">
-              <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-gallery-search-1.1.svg'); ?>" alt=""></span>
-            </a>
-          </div>
+        <div class="col-12">
+          <p>Nenhuma imagem cadastrada para este território ainda.</p>
         </div>
       </div>
+    <?php endif; ?>
 
-    </div>
-  </section>
-  <!--===== Gallery AREA ENDS =======-->
-
-
-
+  </div>
+</section>
+<!--===== Gallery AREA ENDS =======-->
 
 
+
+<?php
+$territorio_id = get_the_ID();
+
+// 1) Episódios do território atual
+$podcasts = get_posts([
+  'post_type'      => 'podcast',
+  'post_status'    => 'publish',
+  'posts_per_page' => 3,
+  'orderby'        => 'date',
+  'order'          => 'DESC',
+  'meta_query'     => [
+    [
+      'key'     => 'podcast_territorio_id',
+      'value'   => (string) $territorio_id,
+      'compare' => '=',
+    ],
+  ],
+]);
+
+// 2) Fallback: Geral (sem território)
+if (empty($podcasts)) {
+  $podcasts = get_posts([
+    'post_type'      => 'podcast',
+    'post_status'    => 'publish',
+    'posts_per_page' => 3,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+    'meta_query'     => [
+      'relation' => 'OR',
+      ['key' => 'podcast_territorio_id', 'compare' => 'NOT EXISTS'],
+      ['key' => 'podcast_territorio_id', 'value' => '', 'compare' => '='],
+      ['key' => 'podcast_territorio_id', 'value' => 0, 'compare' => '='],
+    ],
+  ]);
+}
+?>
+
+<?php if (!empty($podcasts)) : ?>
   <!--===== PODCAST SECTION START =======-->
   <section id="podcast-section" class="sp2" style="padding:80px 0; background:#f9f9f9;">
     <div class="container">
+
       <div class="row align-items-center mb-5">
         <div class="col-xl-7 mx-auto text-center">
-          <h2 class="vl-title text-anime-style-3" style="font-weight:700; margin-bottom:15px;">Podcast do Território</h2>
-          <p style="font-size:18px; color:#444;">Escute vozes, histórias e reflexões que fortalecem saberes e resistências comunitárias.</p>
+          <h2 class="vl-title text-anime-style-3" style="font-weight:700; margin-bottom:15px;">
+            Podcast do Território
+          </h2>
+          <p style="font-size:18px; color:#444;">
+            Escute vozes, histórias e reflexões que fortalecem saberes e resistências comunitárias.
+          </p>
         </div>
       </div>
 
       <div class="row justify-content-center">
         <div class="col-lg-7">
           <div style="border-radius:20px; overflow:hidden; background:#fff; padding:15px; box-shadow:0 4px 20px rgba(0,0,0,0.05);">
-            <iframe style="border-radius:12px; margin-bottom:12px;" src="https://open.spotify.com/embed/show/6QyaRLzzNh8LjOYNJ2ey0E?utm_source=generator" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            <iframe style="border-radius:12px; margin-bottom:12px;" src="https://open.spotify.com/embed/episode/4MkPy99R1dR28XWw2BipBU?utm_source=generator" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            <iframe style="border-radius:12px;" src="https://open.spotify.com/embed/episode/6jNTEiV05IMyXuKiWpXKbo?utm_source=generator" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+            <?php foreach ($podcasts as $p) : ?>
+              <?php
+                $spotify_url = get_post_meta($p->ID, 'podcast_spotify_url', true);
+                $title = get_the_title($p->ID);
+                $embed = function_exists('tc_spotify_embed_html') ? tc_spotify_embed_html($spotify_url) : '';
+              ?>
+
+              <?php if ($embed) : ?>
+                <div style="margin-bottom:12px;">
+                  <div style="font-weight:600; margin:0 0 8px; color:#111;">
+                    
+                  </div>
+                  <?php echo $embed; ?>
+                </div>
+              <?php endif; ?>
+
+            <?php endforeach; ?>
+
           </div>
         </div>
       </div>
+
     </div>
   </section>
   <!--===== PODCAST SECTION END =======-->
+<?php endif; ?>
 
 
-  <!--===== EVENTS AREA STARTS (placeholder estático) =======-->
-  <section id="eventos-section" class="vl-event-area sp1">
-    <div class="container p-relative">
-      <div class="row">
-        <div class="col-xl-7">
-          <div class="vl-section-title4 mb-60">
-            <h2 class="title text-anime-style-3">Próximos Eventos no Território</h2>
-            <p class="para" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-              Fique ligado no que acontece no Território mais próximo de você e marque presença nos nossos encontros
+<?php
+// Helpers
+if (!function_exists('tc_mes_abrev_pt')) {
+  function tc_mes_abrev_pt($m) {
+    $map = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+    $idx = max(1, min(12, (int)$m)) - 1;
+    return $map[$idx];
+  }
+}
+if (!function_exists('tc_format_hora_pt')) {
+  function tc_format_hora_pt($hhmm) {
+    $hhmm = trim((string)$hhmm);
+    if ($hhmm === '') return '';
+    [$h,$min] = array_pad(explode(':', $hhmm), 2, '00');
+    $h = (int)$h;
+    $min = (int)$min;
+    return $min === 0 ? "{$h}h" : "{$h}h" . str_pad((string)$min, 2, '0', STR_PAD_LEFT);
+  }
+}
+
+// Contexto: se estiver no single-territorio, filtra (território atual + gerais)
+// senão, mostra gerais (todos)
+$current_territorio_id = (is_singular('territorio')) ? get_the_ID() : 0;
+$today = date('Y-m-d');
+
+$args = [
+  'post_type'      => 'evento',
+  'posts_per_page' => 10,
+  'post_status'    => 'publish',
+  'meta_key'       => 'evento_data_ordenacao',
+  'orderby'        => 'meta_value',
+  'order'          => 'ASC',
+  'meta_query'     => [
+    [
+      'key'     => 'evento_data_ordenacao',
+      'value'   => $today,
+      'compare' => '>=',
+      'type'    => 'DATE',
+    ],
+  ],
+];
+
+if ($current_territorio_id) {
+  $args['meta_query'][] = [
+    'relation' => 'OR',
+    [
+      'key'     => 'evento_territorio_id',
+      'value'   => (string) $current_territorio_id,
+      'compare' => '=',
+    ],
+    [
+      'key'     => 'evento_territorio_id',
+      'compare' => 'NOT EXISTS',
+    ],
+    [
+      'key'     => 'evento_territorio_id',
+      'value'   => '',
+      'compare' => '=',
+    ],
+  ];
+}
+
+$eventos = new WP_Query($args);
+
+if ($eventos->have_posts()) :
+?>
+
+<section class="vl-singlevent-iner" id="eventos-section">
+  <div class="container">
+
+    <!-- TÍTULO (SÓ APARECE SE TIVER EVENTO) -->
+    <div class="row align-items-center mt-5">
+      <div class="col-lg-6">
+        <div class="vl-work-content-6">
+          <div class="vl-section-title-9 mb-5">
+            <h2 class="vl-title text-anime-style-3">Agenda do Território</h2>
+            <p>
+              Acompanhe oficinas, encontros e ações comunitárias.
+              Participe das atividades e fortaleça as redes de cuidado no território.
             </p>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div id="event4" class="owl-carousel owl-theme">
+    <div class="row">
 
-          <div class="vl-single-event4">
-            <div class="thumb">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/event/vl-event-4.1.png'); ?>" alt="">
+      <?php while ($eventos->have_posts()) : $eventos->the_post(); ?>
+        <?php
+        $eid      = get_the_ID();
+        $data     = get_post_meta($eid, 'evento_data', true);
+        $ini      = get_post_meta($eid, 'evento_hora_inicio', true);
+        $fim      = get_post_meta($eid, 'evento_hora_fim', true);
+        $local    = get_post_meta($eid, 'evento_local', true);
+        $endereco = get_post_meta($eid, 'evento_endereco', true);
+        $tid      = get_post_meta($eid, 'evento_territorio_id', true);
+
+        $ts = $data ? strtotime($data) : false;
+        $day  = $ts ? date('d', $ts) : '--';
+        $mon  = $ts ? tc_mes_abrev_pt(date('n', $ts)) : '--';
+        $year = $ts ? date('Y', $ts) : '----';
+
+        $hini = tc_format_hora_pt($ini);
+        $hfim = tc_format_hora_pt($fim);
+        $hora_txt = ($hini && $hfim) ? "{$hini} - {$hfim}" : ($hini ?: $hfim);
+
+        $territorio_suffix = '';
+        if (!empty($tid)) {
+          $t_title = get_the_title((int)$tid);
+          if ($t_title) $territorio_suffix = '  ' . $t_title;
+        }
+
+        $addr = trim($local . ($local && $endereco ? ', ' : '') . $endereco);
+        ?>
+
+        <div class="col-lg-12 mb-50">
+          <div class="event-bg-flex active">
+
+            <div class="event-date col-lg-1">
+              <h3 class="title"><?php echo esc_html($day); ?></h3>
+              <p class="year">
+                <?php echo esc_html($mon); ?>
+                <br class="d-none d-xl-block">
+                <?php echo esc_html($year); ?>
+              </p>
             </div>
-            <div class="content">
-              <div class="icon-flex">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-event-clock4.1.svg'); ?>" alt=""></span></div>
-                <div class="text"><a href="#" class="date">JAN 08, 2025</a> <br><span>( 11:00 AM )</span></div>
+
+            <div class="event-content">
+
+              <?php if ($hora_txt) : ?>
+                <div class="event-meta">
+                  <p class="para">
+                    <span><i class="fa-regular fa-clock"></i></span>
+                    <?php echo esc_html($hora_txt); ?>
+                  </p>
+                </div>
+              <?php endif; ?>
+
+              <!-- SEM LINK -->
+              <div class="title">
+                <?php echo esc_html(get_the_title()); ?>
+                <?php if ($territorio_suffix) : ?>
+                  <br class="d-none d-xl-block">-<?php echo esc_html($territorio_suffix); ?>
+                <?php endif; ?>
               </div>
-              <a href="#" class="title">A Legacy of Love Senior Citizen Appreciation Day</a>
-              <p class="para">This event is more than a gathering it’s a tribute to the resilience.</p>
-              <a href="#" class="details">Events Details <span><i class="fa-solid fa-arrow-right"></i></span></a>
+
+              <?php if ($addr) : ?>
+                <p class="para">
+                  <span><i class="fa-solid fa-location-dot"></i></span>
+                  <?php echo esc_html($addr); ?>
+                </p>
+              <?php endif; ?>
+
             </div>
           </div>
+        </div>
 
-          <div class="vl-single-event4">
-            <div class="thumb">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/event/vl-event-4.2.png'); ?>" alt="">
-            </div>
-            <div class="content">
-              <div class="icon-flex">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-event-clock4.1.svg'); ?>" alt=""></span></div>
-                <div class="text"><a href="#" class="date">JAN 08, 2025</a> <br><span>( 11:00 AM )</span></div>
-              </div>
-              <a href="#" class="title">Seniors Making a Difference: A Community</a>
-              <p class="para">Attendee will enjoy an evening filled heartfelt, inspiring speeches.</p>
-              <a href="#" class="details">Events Details <span><i class="fa-solid fa-arrow-right"></i></span></a>
-            </div>
-          </div>
+      <?php endwhile; wp_reset_postdata(); ?>
 
-          <div class="vl-single-event4">
-            <div class="thumb">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/event/vl-event-4.3.png'); ?>" alt="">
-            </div>
-            <div class="content">
-              <div class="icon-flex">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-event-clock4.1.svg'); ?>" alt=""></span></div>
-                <div class="text"><a href="#" class="date">JAN 08, 2025</a> <br><span>( 11:00 AM )</span></div>
-              </div>
-              <a href="#" class="title">Echoes of Experience: A Senior Celebration Event</a>
-              <p class="para">Together, let’s honor the silver stars among us, recognizing that their.</p>
-              <a href="#" class="details">Events Details <span><i class="fa-solid fa-arrow-right"></i></span></a>
-            </div>
-          </div>
+    </div>
+  </div>
+</section>
 
-          <div class="vl-single-event4">
-            <div class="thumb">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/event/vl-event-4.1.png'); ?>" alt="">
-            </div>
-            <div class="content">
-              <div class="icon-flex">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-event-clock4.1.svg'); ?>" alt=""></span></div>
-                <div class="text"><a href="#" class="date">JAN 08, 2025</a> <br><span>( 11:00 AM )</span></div>
-              </div>
-              <a href="#" class="title">A Legacy of Love Senior Citizen Appreciation Day</a>
-              <p class="para">This event is more than a gathering it’s a tribute to the resilience.</p>
-              <a href="#" class="details">Events Details <span><i class="fa-solid fa-arrow-right"></i></span></a>
-            </div>
-          </div>
+<?php endif; ?>
 
+
+
+ <?php
+// Contexto: estamos num território?
+$current_territorio_id = (is_singular('territorio')) ? get_the_ID() : 0;
+
+$news_args = [
+  'post_type'      => 'post',
+  'post_status'    => 'publish',
+  'posts_per_page' => 3,
+  'orderby'        => 'date',
+  'order'          => 'DESC',
+];
+
+if ($current_territorio_id) {
+  // Território atual OU post geral
+  $news_args['meta_query'] = [
+    'relation' => 'OR',
+    [
+      'key'     => 'post_territorio_id',
+      'value'   => (string) $current_territorio_id,
+      'compare' => '=',
+    ],
+    [
+      'key'     => 'post_territorio_id',
+      'compare' => 'NOT EXISTS',
+    ],
+    [
+      'key'     => 'post_territorio_id',
+      'value'   => '',
+      'compare' => '=',
+    ],
+  ];
+} else {
+  // Fora de um território: somente posts gerais (opcional)
+  $news_args['meta_query'] = [
+    'relation' => 'OR',
+    [
+      'key'     => 'post_territorio_id',
+      'compare' => 'NOT EXISTS',
+    ],
+    [
+      'key'     => 'post_territorio_id',
+      'value'   => '',
+      'compare' => '=',
+    ],
+  ];
+}
+
+$news = new WP_Query($news_args);
+
+if ($news->have_posts()) :
+  $fallback_img = get_template_directory_uri() . '/assets/img/blog/vl-blg-1.1.png';
+?>
+
+<!--===== Blog AREA STARTS =======-->
+<section id="noticias-section" class="vl-blog4 sp2">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xl-7">
+        <div class="vl-section-title4 mb-30">
+          <h2 class="title text-anime-style-3">
+            <?php echo $current_territorio_id ? 'Últimas Notícias do Território' : 'Últimas Notícias'; ?>
+          </h2>
         </div>
       </div>
     </div>
-  </section>
-  <!--===== EVENTS AREA ENDS =======-->
 
+    <div class="row">
+      <?php
+      $i = 0;
+      $posts_data = [];
 
-  <!--===== Blog AREA STARTS (placeholder estático) =======-->
-  <section id="noticias-section" class="vl-blog4 sp2">
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-7">
-          <div class="vl-section-title4 mb-30">
-            <h2 class="title text-anime-style-3">Últimas Notícias do Território</h2>
-          </div>
-        </div>
-      </div>
+      while ($news->have_posts()) : $news->the_post();
+        $i++;
+        $pid = get_the_ID();
 
-      <div class="row">
+        $img = has_post_thumbnail($pid)
+          ? get_the_post_thumbnail_url($pid, 'large')
+          : $fallback_img;
+
+        $date = get_the_date('d \d\e F \d\e Y', $pid);
+        $author = get_the_author();
+        $title = get_the_title();
+        $link  = get_permalink($pid);
+
+        $excerpt = has_excerpt($pid)
+          ? get_the_excerpt($pid)
+          : wp_trim_words(wp_strip_all_tags(get_the_content(null, false, $pid)), 22, '...');
+
+        $posts_data[] = compact('img','date','author','title','link','excerpt');
+      endwhile;
+      wp_reset_postdata();
+
+      // Garantir 3 itens (se tiver menos, só renderiza o que tem)
+      ?>
+
+      <?php if (!empty($posts_data[0])) : ?>
         <div class="col-xl-6 col-lg-6">
           <div class="single-blog mb-30">
             <div class="blog-thumb">
-              <img class="w-100" src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/blog/vl-blg-1.1.png'); ?>" alt="">
+              <img class="w-100" src="<?php echo esc_url($posts_data[0]['img']); ?>" alt="<?php echo esc_attr($posts_data[0]['title']); ?>">
             </div>
+
             <div class="blog-content">
               <div class="meta-flex">
                 <div class="single-meta-box">
-                  <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-calender-wh-4.1.svg'); ?>" alt=""></span></div>
-                  <a href="#" class="para">08 de Outubro de 2025</a>
+                  <div class="icon">
+                    <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-calender-wh-4.1.svg'); ?>" alt=""></span>
+                  </div>
+                  <span class="para"><?php echo esc_html($posts_data[0]['date']); ?></span>
                 </div>
+
                 <div class="single-meta-box">
-                  <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-user-wh-4.2.svg'); ?>" alt=""></span></div>
-                  <a href="#" class="para">Autor Território</a>
+                  <div class="icon">
+                    <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-user-wh-4.2.svg'); ?>" alt=""></span>
+                  </div>
+                  <span class="para"><?php echo esc_html($posts_data[0]['author']); ?></span>
                 </div>
               </div>
+
               <div class="content">
-                <a href="#" class="title">Projeto promove olhar para a saúde no campo, floresta e águas no Maranhão</a>
-                <a href="#" class="readmore">Leia mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
+                <a href="<?php echo esc_url($posts_data[0]['link']); ?>" class="title"><?php echo esc_html($posts_data[0]['title']); ?></a>
+                <a href="<?php echo esc_url($posts_data[0]['link']); ?>" class="readmore">Leia mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
               </div>
             </div>
           </div>
         </div>
+      <?php endif; ?>
 
-        <div class="col-xl-6 col-lg-6">
-          <div class="vl-single-blog-item4 mb-30" data-aos="zoom-in-up" data-aos-duration="1200" data-aos-delay="300">
-            <div class="meta-flex">
-              <div class="single-meta-box">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-calender-blck4.1.svg'); ?>" alt=""></span></div>
-                <a href="#" class="para">08 de Outubro de 2025</a>
-              </div>
-              <div class="single-meta-box">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-user-blck4.2.svg'); ?>" alt=""></span></div>
-                <a href="#" class="para">Autor Território</a>
-              </div>
-            </div>
-            <div class="content">
-              <a href="#" class="title">Projeto promove olhar para a saúde no campo, floresta e águas no Maranhão</a>
-              <p class="para">Com a finalidade de promover a formação de trabalhadores que lidam com o cuidado em saúde de populações nesses territórios, projeto 'Começo...</p>
-              <a href="#" class="readmore">Ler mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
-            </div>
-          </div>
+      <div class="col-xl-6 col-lg-6">
+        <?php for ($k = 1; $k <= 2; $k++) : ?>
+          <?php if (empty($posts_data[$k])) continue; ?>
 
           <div class="vl-single-blog-item4 mb-30" data-aos="zoom-in-up" data-aos-duration="1200" data-aos-delay="300">
             <div class="meta-flex">
               <div class="single-meta-box">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-calender-blck4.1.svg'); ?>" alt=""></span></div>
-                <a href="#" class="para">08 de Outubro de 2025</a>
+                <div class="icon">
+                  <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-calender-blck4.1.svg'); ?>" alt=""></span>
+                </div>
+                <span class="para"><?php echo esc_html($posts_data[$k]['date']); ?></span>
               </div>
+
               <div class="single-meta-box">
-                <div class="icon"><span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-user-blck4.2.svg'); ?>" alt=""></span></div>
-                <a href="#" class="para">Autor Território</a>
+                <div class="icon">
+                  <span><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/icons/vl-user-blck4.2.svg'); ?>" alt=""></span>
+                </div>
+                <span class="para"><?php echo esc_html($posts_data[$k]['author']); ?></span>
               </div>
             </div>
+
             <div class="content">
-              <a href="#" class="title">Projeto promove olhar para a saúde no campo, floresta e águas no Maranhão</a>
-              <p class="para">Com a finalidade de promover a formação de trabalhadores que lidam com o cuidado em saúde de populações nesses territórios, projeto 'Começo...</p>
-              <a href="#" class="readmore">Leia mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
+              <a href="<?php echo esc_url($posts_data[$k]['link']); ?>" class="title"><?php echo esc_html($posts_data[$k]['title']); ?></a>
+              <p class="para"><?php echo esc_html($posts_data[$k]['excerpt']); ?></p>
+              <a href="<?php echo esc_url($posts_data[$k]['link']); ?>" class="readmore">Leia mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
             </div>
           </div>
-        </div>
 
+        <?php endfor; ?>
       </div>
+
     </div>
-  </section>
-  <!--===== Blog AREA ENDS =======-->
+  </div>
+</section>
+<!--===== Blog AREA ENDS =======-->
+
+<?php endif; ?>
+
 
 
   <!--===== CTA AREA STARTS =======-->

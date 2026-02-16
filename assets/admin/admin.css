@@ -1,0 +1,15 @@
+/* Corrige scroll horizontal no metabox do Território */
+#tc_post_territorio .inside,
+#tc_post_territorio .inside * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#tc_post_territorio select {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#tc_post_territorio .inside {
+  overflow-x: hidden;
+}

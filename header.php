@@ -116,7 +116,7 @@
                       <li><a href="/regioes/sul">Sul</a></li>
                     </ul>
                   </li>
-                  <li><a href="/galeria">Galeria</a></li>
+                  <li><a href="/galerias">Galeria</a></li>
                   <li><a href="/calendario">Calendário</a></li>
                   <li><a href="/noticias">Notícias</a></li>
                   <li><a href="/contato">Contato</a></li>
@@ -172,7 +172,7 @@
           <li><a href="/regioes/sul">Sul</a></li>
         </ul>
       </li>
-      <li><a href="/galeria">Galeria</a></li>
+      <li><a href="/galerias">Galeria</a></li>
       <li><a href="/calendario">Calendário</a></li>
       <li><a href="/noticias">Notícias</a></li>
       <li><a href="/contato">Contato</a></li>
