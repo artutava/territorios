@@ -103,7 +103,7 @@ get_header();
             <p class="pb-32" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">Nosso objetivo é desvelar as diversas ações de promoção da saúde que se caracterizam a partir da cultura e do modo de vida nos territórios. Promovendo formação-ação com uma abordagem intersetorial e interseccional para ampliar o debate e promoção da saúde, meio ambiente, cultura e participação social, sempre valorizando os saberes locais e o protagonismo das pessoas. 
             </p>
             <div class="btn-area">
-              <a href="page-about.html" class="header-btn1">Ver mais<span><i class="fa-solid fa-arrow-right"></i></span></a>
+              <a href="/about" class="header-btn1">Ver mais<span><i class="fa-solid fa-arrow-right"></i></span></a>
             </div>
           </div>
           
@@ -565,6 +565,7 @@ if (!function_exists('tc_format_hora_pt')) {
             </div>
           </div>
         </div>
+     
       </div>
       <div class="col-xl-3 col-md-6 order-xl-3">
         <div class="vl-gallery-sm-thumb mb-30 reveal">
@@ -575,6 +576,13 @@ if (!function_exists('tc_format_hora_pt')) {
         </div>
       </div>
     </div>
+    <div class="btn-area w-100 d-flex justify-content-center">
+  <a href="/galeria" class="header-btn1">
+    Ver Galeria Completa
+    <span><i class="fa-solid fa-arrow-right"></i></span>
+  </a>
+</div>
+    
   </div>
 </section>
 <!--===== Gallery AREA ENDS =======-->
