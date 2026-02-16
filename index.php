@@ -220,8 +220,22 @@ get_header();
 
 <!--===== EVENTS AREA ENDS =======-->
 
- <!--===== Blog AREA START =======-->
- <section class="vl-blg sp2">
+<!--===== Blog AREA START =======-->
+
+<?php
+$news = new WP_Query([
+  'post_type'      => 'post',
+  'post_status'    => 'publish',
+  'posts_per_page' => 3,
+  'orderby'        => 'date',
+  'order'          => 'DESC',
+]);
+
+if ($news->have_posts()) :
+?>
+
+
+<section class="vl-blg sp2" id="noticias-section">
   <div class="container">
      <div class="row align-items-center mb-60">
         <div class="col-lg-12">
@@ -229,83 +243,87 @@ get_header();
             <div class="vl-section-title-1 mb-60 text-center">
               <h5 class="subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">Últimas Notícias</h5>
               <h2 class="title text-anime-style-3">Histórias de cuidado e força</h2>
-              <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">Uma coleção de experiências potentes de quem viu seu território envolvido em saberes, redes de proteção e ações de promoção da saúde e participação social.<br class="d-none d-xl-block">Aqui, cada relato constrói equidade a partir da comunidade.</p>
+              <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                Uma coleção de experiências potentes de quem viu seu território envolvido em saberes, redes de proteção e ações de promoção da saúde e participação social.
+                <br class="d-none d-xl-block">Aqui, cada relato constrói equidade a partir da comunidade.
+              </p>
             </div>
            </div>
         </div>
      </div>
+
      <div class="row">
+        <?php
+          $fallback = get_template_directory_uri() . '/assets/img/blog/vl-blg-1.1.png';
+
+          while ($news->have_posts()) : $news->the_post();
+
+            $pid = get_the_ID();
+
+            $img = has_post_thumbnail($pid)
+              ? get_the_post_thumbnail_url($pid, 'large')
+              : $fallback;
+
+            $day  = get_the_date('d', $pid);
+            $mon  = get_the_date('M', $pid); // Jan, Feb, etc (igual seu template)
+
+            $author = get_the_author();
+
+            $excerpt = has_excerpt($pid)
+              ? get_the_excerpt($pid)
+              : wp_trim_words(wp_strip_all_tags(get_the_content(null, false, $pid)), 18, '...');
+
+            $link = get_permalink($pid);
+        ?>
+
         <!-- single blog box -->
         <div class="col-xl-4 col-md-6 mb-30">
            <div class="vl-single-blg-item vl-single-blg-item-6" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
               <div class="vl-blg-thumb vl-blg-thumb-7">
-                 <a href="page-blog-single.html"><img class="w-100" src="<?php echo get_template_directory_uri(); ?>/assets/img/blog/vl-blg-1.1.png" alt=""></a>
+                 <a href="<?php echo esc_url($link); ?>">
+                   <img class="w-100" src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr(get_the_title($pid)); ?>">
+                 </a>
                  <div class="vl-blog-date-7">
-                    <span>17 <br> <cite>Jun</cite></span>
+                    <span><?php echo esc_html($day); ?> <br> <cite><?php echo esc_html($mon); ?></cite></span>
                  </div>
               </div>
+
               <div class="vl-blg-content vl-blg-content-6">
                  <div class="vl-meta">
                     <ul>
-                       <li><a href="#"><span> <img style="width: 30px; height: 30px;" src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/vl-user-6.1.svg" alt=""></span>  Ator Território</a></li>
+                       <li>
+                         <a href="#">
+                           <span>
+                             <img style="width: 30px; height: 30px;" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/icons/vl-user-6.1.svg" alt="">
+                           </span>
+                           <?php echo esc_html($author); ?>
+                         </a>
+                       </li>
                     </ul>
                  </div>
-                 <h3 class="title"><a href="page-blog-single.html">Projeto promove olhar para a saúde no campo, floresta e águas no Maranhão </a></h3>
-                 <p>Com a finalidade de promover a formação de trabalhadores que lidam com o cuidado em saúde de populações nesses territórios, projeto 'Começo...</p>
-                 <a href="page-blog-single.html" class="read-more">Ler mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
+
+                 <h3 class="title">
+                   <a href="<?php echo esc_url($link); ?>"><?php echo esc_html(get_the_title($pid)); ?></a>
+                 </h3>
+
+                 <p><?php echo esc_html($excerpt); ?></p>
+
+                 <a href="<?php echo esc_url($link); ?>" class="read-more">
+                   Ler mais <span><i class="fa-solid fa-arrow-right"></i></span>
+                 </a>
               </div>
            </div>
         </div>
         <!-- single blog end -->
 
-        <!-- single blog box -->
-        <div class="col-xl-4 col-md-6 mb-30">
-          <div class="vl-single-blg-item vl-single-blg-item-6" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
-             <div class="vl-blg-thumb vl-blg-thumb-7">
-                <a href="page-blog-single.html"><img class="w-100" src="<?php echo get_template_directory_uri(); ?>/assets/img/blog/vl-blg-1.1.png" alt=""></a>
-                <div class="vl-blog-date-7">
-                   <span>17 <br> <cite>Jun</cite></span>
-                </div>
-             </div>
-             <div class="vl-blg-content vl-blg-content-6">
-                <div class="vl-meta">
-                   <ul>
-                      <li><a href="#"><span> <img style="width: 30px; height: 30px;" src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/vl-user-6.1.svg" alt=""></span>  Ator Território</a></li>
-                   </ul>
-                </div>
-                <h3 class="title"><a href="page-blog-single.html">Projeto promove olhar para a saúde no campo, floresta e águas no Maranhão </a></h3>
-                <p>Com a finalidade de promover a formação de trabalhadores que lidam com o cuidado em saúde de populações nesses territórios, projeto 'Começo...</p>
-                <a href="page-blog-single.html" class="read-more">Ler mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
-             </div>
-          </div>
-       </div>
-       <!-- single blog end -->
+        <?php endwhile; wp_reset_postdata(); ?>
+     </div>
 
-       <!-- single blog box -->
-       <div class="col-xl-4 col-md-6 mb-30">
-        <div class="vl-single-blg-item vl-single-blg-item-6" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
-           <div class="vl-blg-thumb vl-blg-thumb-7">
-              <a href="page-blog-single.html"><img class="w-100" src="<?php echo get_template_directory_uri(); ?>/assets/img/blog/vl-blg-1.1.png" alt=""></a>
-              <div class="vl-blog-date-7">
-                 <span>17 <br> <cite>Jun</cite></span>
-              </div>
-           </div>
-           <div class="vl-blg-content vl-blg-content-6">
-              <div class="vl-meta">
-                 <ul>
-                    <li><a href="#"><span> <img style="width: 30px; height: 30px;" src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/vl-user-6.1.svg" alt=""></span>  Ator Território</a></li>
-                 </ul>
-              </div>
-              <h3 class="title"><a href="page-blog-single.html">Projeto promove olhar para a saúde no campo, floresta e águas no Maranhão </a></h3>
-              <p>Com a finalidade de promover a formação de trabalhadores que lidam com o cuidado em saúde de populações nesses territórios, projeto 'Começo...</p>
-              <a href="page-blog-single.html" class="read-more">Ler mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
-           </div>
-        </div>
-     </div>
-     <!-- single blog end -->
-     </div>
   </div>
 </section>
+
+
+<?php endif; ?>
 <!--===== Blog AREA END =======-->
 
 <!--===== MAP AREA START =======-->
@@ -384,82 +402,146 @@ get_header();
 </section>
 <!--===== COUNTER AREA ENDS =======-->
 
+<?php
+// ===== Próximos Eventos (HOME) =====
+
+// "hoje" respeitando timezone do WordPress
+$today = wp_date('Y-m-d');
+
+// Query: próximos eventos (independente de território)
+// - tenta filtrar por evento_data_ordenacao
+// - se alguns posts não tiverem evento_data_ordenacao, ainda assim eles aparecem via fallback (evento_data)
+// Observação: se TODOS os seus eventos têm evento_data_ordenacao preenchido, melhor ainda.
+$eventos = new WP_Query([
+  'post_type'      => 'evento',
+  'post_status'    => 'publish',
+  'posts_per_page' => 3,
+  'orderby'        => 'meta_value',
+  'meta_key'       => 'evento_data_ordenacao',
+  'order'          => 'ASC',
+  'meta_query'     => [
+    'relation' => 'OR',
+    [
+      'key'     => 'evento_data_ordenacao',
+      'value'   => $today,
+      'compare' => '>=',
+      'type'    => 'DATE',
+    ],
+    [
+      'key'     => 'evento_data',
+      'value'   => $today,
+      'compare' => '>=',
+      'type'    => 'DATE',
+    ],
+  ],
+]);
+
+// Helpers (se já existirem em outro lugar, não redeclara)
+if (!function_exists('tc_mes_abrev_pt')) {
+  function tc_mes_abrev_pt($m) {
+    $map = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+    $idx = max(1, min(12, (int)$m)) - 1;
+    return $map[$idx];
+  }
+}
+if (!function_exists('tc_format_hora_pt')) {
+  function tc_format_hora_pt($hhmm) {
+    $hhmm = trim((string)$hhmm);
+    if ($hhmm === '') return '';
+    [$h,$min] = array_pad(explode(':', $hhmm), 2, '00');
+    $h = (int)$h;
+    $min = (int)$min;
+    return $min === 0 ? "{$h}h" : "{$h}h" . str_pad((string)$min, 2, '0', STR_PAD_LEFT);
+  }
+}
+?>
 
 <!--===== Event AREA STARTS =======-->
-<section class="vl-blog sp2">
+<section class="vl-blog sp2" id="eventos-section">
   <div class="container">
     <div class="row">
-      <div class="col-xl-5">
-        <div class="vl-blog-lar-thumb-bg" style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/img/blog/vl-blog-larg-thmb.png);">
+      <div class="col-xl-5 mb-4">
+        <div class="vl-blog-lar-thumb-bg" style="background-image: url(<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/blog/vl-blog-larg-thmb.png);">
           <div class="vl-section-title-1">
             <h5 class="subtitle" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">Fique ligado no nosso calendário</h5>
             <h2 class="title text-anime-style-3">Próximos Eventos</h2>
-            <p class="pb-32" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">Confira os próximos eventos, encontros e atividades promovidas pelo projeto. Participe e fortaleça essa rede de cuidado.</p>
+            <p class="pb-32" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
+              Confira os próximos eventos, encontros e atividades promovidas pelo projeto. Participe e fortaleça essa rede de cuidado.
+            </p>
             <div class="btn-area" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
-              <a href="page-event.html" class="header-btn1">Ver mais <span><i class="fa-solid fa-arrow-right"></i></span></a>
+              <a href="<?php echo esc_url(get_post_type_archive_link('evento')); ?>" class="header-btn1">
+                Ver mais <span><i class="fa-solid fa-arrow-right"></i></span>
+              </a>
             </div>
           </div>
         </div>
       </div>
+
       <div class="col-xl-7 col-lg-6" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="300">
 
-      <!-- single event item -->
-      <div class="col-lg-12 mb-20">
-        <div class="event-bg-flex">
-          <div class="event-date">
-            <h3 class="title">08</h3>
-            <p class="year">JAN <br class="d-none d-xl-block"> 2025</p>
-          </div>
-          <div class="event-content col-lg-9">
-            <div class="event-meta-home">
-              <p class="para"><span><i class="fa-regular fa-clock"></i></span>  9h - 17h</p>
-            </div>
-            <a href="" class="title">Oficina de Formação em Promoção da Saúde - Território Maranhão</a>
-            <p class="para"><span><i class="fa-solid fa-location-dot"></i></span>  Centro de Formação XYZ, Rua das Mangueiras , 300 – Codó/MA</p>
-          </div>
-        </div>
-      </div>
+        <?php if ($eventos->have_posts()) : ?>
+          <?php while ($eventos->have_posts()) : $eventos->the_post(); ?>
+            <?php
+              $eid      = get_the_ID();
 
-      <!-- single event item -->
-      <div class="col-lg-12 mb-20">
-        <div class="event-bg-flex">
-          <div class="event-date">
-            <h3 class="title">08</h3>
-            <p class="year">JAN <br class="d-none d-xl-block"> 2025</p>
-          </div>
-          <div class="event-content col-lg-9">
-            <div class="event-meta-home">
-              <p class="para"><span><i class="fa-regular fa-clock"></i></span>  9h - 17h</p>
-            </div>
-            <a href="" class="title">Workshop FioCruz Brasília</a>
-            <p class="para"><span><i class="fa-solid fa-location-dot"></i></span>  Avenida L3 Norte, s/n, Campus Universitário Darcy Ribeiro, Gleba A, Brasília </p>
-          </div>
-        </div>
-      </div>
+              // pega data (prioriza ordenacao, senão evento_data)
+              $data = get_post_meta($eid, 'evento_data_ordenacao', true);
+              if (!$data) $data = get_post_meta($eid, 'evento_data', true);
 
-      <!-- single event item -->
-      <div class="col-lg-12 mb-20">
-        <div class="event-bg-flex">
-          <div class="event-date">
-            <h3 class="title">08</h3>
-            <p class="year">JAN <br class="d-none d-xl-block"> 2025</p>
-          </div>
-          <div class="event-content col-lg-9">
-            <div class="event-meta-home">
-              <p class="para"><span><i class="fa-regular fa-clock"></i></span>  9h - 17h</p>
-            </div>
-            <a href="" class="title">Oficina de Formação em Promoção da Saúde - Território Maranhão</a>
-            <p class="para"><span><i class="fa-solid fa-location-dot"></i></span>  Centro de Formação XYZ, Rua das Mangueiras , 300 – Codó/MA</p>
-          </div>
-        </div>
-      </div>
+              $ini      = get_post_meta($eid, 'evento_hora_inicio', true);
+              $fim      = get_post_meta($eid, 'evento_hora_fim', true);
+              $local    = get_post_meta($eid, 'evento_local', true);
+              $endereco = get_post_meta($eid, 'evento_endereco', true);
 
-     
-       
+              $ts = $data ? strtotime($data) : false;
+              $day  = $ts ? date('d', $ts) : '--';
+              $mon  = $ts ? tc_mes_abrev_pt(date('n', $ts)) : '--';
+              $year = $ts ? date('Y', $ts) : '----';
+
+              $hini = tc_format_hora_pt($ini);
+              $hfim = tc_format_hora_pt($fim);
+              $hora_txt = ($hini && $hfim) ? "{$hini} - {$hfim}" : ($hini ?: $hfim);
+
+              $addr = trim($local . ($local && $endereco ? ', ' : '') . $endereco);
+            ?>
+
+            <!-- single event item -->
+            <div class="col-lg-12 mb-20">
+              <div class="event-bg-flex">
+                <div class="event-date">
+                  <h3 class="title"><?php echo esc_html($day); ?></h3>
+                  <p class="year"><?php echo esc_html($mon); ?> <br class="d-none d-xl-block"> <?php echo esc_html($year); ?></p>
+                </div>
+                <div class="event-content col-lg-9 mx-4">
+                  <?php if ($hora_txt) : ?>
+                    <div class="event-meta-home">
+                      <p class="para"><span><i class="fa-regular fa-clock"></i></span> <?php echo esc_html($hora_txt); ?></p>
+                    </div>
+                  <?php endif; ?>
+
+                  <!-- sem link -->
+                  <span class="title"><?php echo esc_html(get_the_title()); ?></span>
+
+                  <?php if ($addr) : ?>
+                    <p class="para"><span><i class="fa-solid fa-location-dot"></i></span> <?php echo esc_html($addr); ?></p>
+                  <?php endif; ?>
+                </div>
+              </div>
+            </div>
+
+          <?php endwhile; wp_reset_postdata(); ?>
+        <?php else : ?>
+          <div class="col-lg-12">
+            <p style="opacity:.75; margin:0;">Nenhum evento futuro cadastrado no momento.</p>
+          </div>
+        <?php endif; ?>
+
+      </div>
     </div>
   </div>
 </section>
-<!--===== Blog AREA ENDS =======-->
+<!--===== Event AREA ENDS =======-->
+
 
 <!--===== Gallery AREA STARTS =======-->
 <section id="gallery" class="vl-gallery3 sp2">
