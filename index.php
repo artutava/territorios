@@ -146,7 +146,7 @@ get_header();
         <!-- Norte -->
         <div class="d-flex" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" style="padding:0 6px;">
           <a
-            href=""
+            href="/regioes/norte"
             class="vl-choose-icon-box-10 w-100 d-flex flex-column justify-content-center align-items-center"
             style="text-decoration:none; min-height:200px;"
           >
@@ -160,7 +160,7 @@ get_header();
         <!-- Nordeste -->
         <div class="d-flex" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300" style="padding:0 6px;">
           <a
-            href=""
+            href="/regioes/nordeste"
             class="vl-choose-icon-box-10 w-100 d-flex flex-column justify-content-center align-items-center"
             style="text-decoration:none; min-height:200px;"
           >
@@ -174,7 +174,7 @@ get_header();
         <!-- Centro-Oeste -->
         <div class="d-flex" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" style="padding:0 6px;">
           <a
-            href=""
+            href="/regioes/centro-oeste"
             class="vl-choose-icon-box-10 w-100 d-flex flex-column justify-content-center align-items-center"
             style="text-decoration:none; min-height:200px;"
           >
@@ -188,7 +188,7 @@ get_header();
         <!-- Sudeste -->
         <div class="d-flex" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" style="padding:0 6px;">
           <a
-            href=""
+            href="/regioes/sudeste"
             class="vl-choose-icon-box-10 w-100 d-flex flex-column justify-content-center align-items-center"
             style="text-decoration:none; min-height:200px;"
           >
@@ -202,7 +202,7 @@ get_header();
         <!-- Sul -->
         <div class="d-flex" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" style="padding:0 6px;">
           <a
-            href=""
+            href="/regioes/sul"
             class="vl-choose-icon-box-10 w-100 d-flex flex-column justify-content-center align-items-center"
             style="text-decoration:none; min-height:200px;"
           >
